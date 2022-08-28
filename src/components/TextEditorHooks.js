@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Editor } from "react-draft-wysiwyg";
 import {
   EditorState,
@@ -11,22 +11,29 @@ import "./editor.css";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import draftToHtml from "draftjs-to-html";
 
-const TextEditorHooks = ({ handleCreatePost }) => {
-  const sampleMarkup =
-    "<b>Bold text</b>, <i>Italic text</i><br/ ><br />" +
-    '<a href="http://www.facebook.com">Example link</a>';
-
-  const blocksFromHTML = convertFromHTML(sampleMarkup);
-  const state = ContentState.createFromBlockArray(
-    blocksFromHTML.contentBlocks,
-    blocksFromHTML.entityMap
-  );
-
-  console.log("state :>> ", state);
-
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  //   const [editorState, setEditorState] = useState(state);
+const TextEditorHooks = ({ handleCreatePost, content, options }) => {
+  const [editorState, setEditorState] = useState(EditorState.createEmpty())
   const [rawHTML, setRawHTML] = useState("");
+
+  const setSavedState = () => {
+    if (!content) {
+      return;
+    }
+
+    const savedState = EditorState.createWithContent(
+      ContentState.createFromBlockArray(
+        convertFromHTML(content)
+      )
+    )
+
+    setEditorState(savedState)
+  }
+
+  useEffect(() => {
+    setSavedState();
+  }, [content])
+
+
 
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
@@ -34,9 +41,6 @@ const TextEditorHooks = ({ handleCreatePost }) => {
   };
 
   const getHTMLFromDraft = (draftText) => {
-    // const currentState = draftText.getCurrentContent()
-    // const rawState = convertToRaw(currentState);
-    // const html = draftToHtml(rawState);
     return draftToHtml(convertToRaw(draftText.getCurrentContent()));
   };
 
@@ -54,10 +58,12 @@ const TextEditorHooks = ({ handleCreatePost }) => {
     }
 
     console.log("file :>> ", file);
-    return Promise.reject();
+    return Promise.resolve();
   };
 
-  const myBlockStyleFn = () => {};
+  // const myBlockStyleFn = () => {};
+
+  console.log('options :>> ', options);
 
   return (
     <>
@@ -69,6 +75,7 @@ const TextEditorHooks = ({ handleCreatePost }) => {
           editorClassName="editor-class"
           onEditorStateChange={onEditorStateChange}
           toolbar={{
+            options,
             inline: { inDropdown: true },
             list: { inDropdown: true },
             textAlign: { inDropdown: true },
@@ -80,6 +87,7 @@ const TextEditorHooks = ({ handleCreatePost }) => {
               alt: { present: true, mandatory: false },
               inputAccept: "image/jpeg,image/jpg,image/png",
             },
+
           }}
           editorStyle={{ border: "1px solid", height: '400px' }}
           //   blockStyleFn={myBlockStyleFn}

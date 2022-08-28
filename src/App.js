@@ -8,18 +8,19 @@ import axios from "axios";
 const getAPIData = async () => {
   const {
     data: { data },
-  } = await axios.get("http://localhost:9999/html");
+  } = await axios.get("http://localhost:5000/api/posts");
   return data;
 };
 
 const postAPIData = async (data) => {
-  const resp = await axios.post("http://localhost:9999/html", { data });
+  const resp = await axios.post("http://localhost:5000/api/posts", { data });
   console.log("resp :>> ", resp);
   return resp;
 };
 
 function App() {
   const [posts, setPosts] = useState();
+  const [ initHTML, setInitHTML ] = useState('')
 
   const handleCreatePost = async (data) => {
     console.log("data :>> ", data);
@@ -31,8 +32,12 @@ function App() {
     getAPIData().then((data) => {
       console.log("data :>> ", data);
       setPosts(data);
+      setInitHTML('<p>Hello World</p>')
     });
   }, [setPosts]);
+
+  const options = ['inline', 'blockType', 'fontSize', 'fontFamily', 'list', 'textAlign', 'colorPicker', 'link', 'embedded', 'emoji', 'image', 'remove', 'history']
+
 
   return (
     <div className="App">
@@ -42,7 +47,7 @@ function App() {
       </header>
       <div className="editor">
         {/* <TextEditor /> */}
-        <TextEditorHooks handleCreatePost={handleCreatePost} />
+        <TextEditorHooks handleCreatePost={handleCreatePost} initHTML={initHTML} options={options} />
       </div>
 
       <hr />

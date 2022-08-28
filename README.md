@@ -1,29 +1,23 @@
-## Create Rich Text Editor in ReactJS
+## Rich Text Editor in ReactJS with ExpressJS
 
-In this Project, I'm going to show you how we can build rich text editor using React Draft WYSIWYG package. Using this library we can easily create a great text editor with only a few lines of code. This text editor provides a lot of features such as text decorations, font styles, formats, size, text colour,  emojis, lists also you can upload an image or embed any link.  Make sure you watch the whole video in order to understand how to use it.   
+### Start Express Server
 
-This project is done using below npm package.
-https://www.npmjs.com/package/react-draft-wysiwyg
+* open server folder
+* start terminal
+* install dependencies ```$ npm i```
+* run the app ```npm run dev```
 
-Watch Video Tutorial here!
-https://youtu.be/PDdZB83_Nrs
+Express.js server will run on port 5000.
 
+### Start React Server
 
+* start terminal inside main folder
+* install dependencies ```$ yarn```
+* run the app ```$ yarn start```
 
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Instructions
-
-In the project directory, first run:
-
-### `npm install`
-
-For installing all the dependancies. 
-
-### `npm start`
-
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+React server will start on port 3000.
 
 
+### Credits
+
+[Original Repo](https://github.com/codebucks27/ReactJs-Text-Editor)
