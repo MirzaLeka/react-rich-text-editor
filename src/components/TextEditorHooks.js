@@ -63,8 +63,6 @@ const TextEditorHooks = ({ handleCreatePost, content, options }) => {
 
   // const myBlockStyleFn = () => {};
 
-  console.log('options :>> ', options);
-
   return (
     <>
       <div>
