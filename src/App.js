@@ -20,7 +20,7 @@ const postAPIData = async (data) => {
 
 function App() {
   const [posts, setPosts] = useState();
-  const [ initHTML, setInitHTML ] = useState('')
+  const [ initialContent, setInitialContent ] = useState('')
 
   const handleCreatePost = async (data) => {
     console.log("data :>> ", data);
@@ -32,7 +32,7 @@ function App() {
     getAPIData().then((data) => {
       console.log("data :>> ", data);
       setPosts(data);
-      setInitHTML('<p>Hello World</p>')
+      setInitialContent('<p>Hello World</p>')
     });
   }, [setPosts]);
 
@@ -47,7 +47,7 @@ function App() {
       </header>
       <div className="editor">
         {/* <TextEditor /> */}
-        <TextEditorHooks handleCreatePost={handleCreatePost} initHTML={initHTML} options={options} />
+        <TextEditorHooks handleCreatePost={handleCreatePost} content={initialContent} options={options} />
       </div>
 
       <hr />
